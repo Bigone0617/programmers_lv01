@@ -46,32 +46,15 @@ lottos	                win_nums	                result
 
 function solution(lottos, win_nums) {
     var answer = [];
-    // 확실하게 아는 번호들
-    let currentArr  = lottos.filter(lotto => lotto !== 0);
-    let matchCnt = 0;
-    let zeroCnt = lottos.length - currentArr.length;
+    let zeroCnt = lottos.filter(lotto => lotto == 0).length;
+    let rankArr = [6,6,5,4,3,2,1];
 
-    for(let i = 0; i < currentArr.length; i++){
-        win_nums.filter(win_num => {
-            if(win_num == currentArr[i]){
-                matchCnt += 1;
-        }})
-    }
+    // 최소로 맞힘
+    let minCount = lottos.filter(lotto => win_nums.includes(lotto)).length;
+    // 최대로 맞힘 
+    let maxCount = minCount + zeroCnt;
 
-    // 최대로 많이 맞힘
-    let maxCount = matchCnt + zeroCnt;
-    // 최소로 맞힘 
-    let minCount = matchCnt;
-
-    let swape = (count) => {
-        if(count == 0 || count == 1){
-            return 6
-        }else {
-            return 7 - count;
-        }
-    }
-
-    answer = [swape(maxCount), swape(minCount)];
+    answer = [rankArr[maxCount], rankArr[minCount]];
 
     return answer;
 }
